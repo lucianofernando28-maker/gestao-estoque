@@ -1,4 +1,15 @@
 CREATE TYPE "public"."role" AS ENUM('ADMIN', 'USER');--> statement-breakpoint
+CREATE TABLE "products" (
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"price" numeric(10, 2) NOT NULL,
+	"stock_quantity" integer DEFAULT 0 NOT NULL,
+	"total_price" numeric(10, 2) NOT NULL,
+	"created_At" timestamp DEFAULT now() NOT NULL,
+	"update_At" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "products_name_unique" UNIQUE("name")
+);
+--> statement-breakpoint
 CREATE TABLE "refresh_token" (
 	"id" varchar PRIMARY KEY NOT NULL,
 	"user_id" varchar NOT NULL,

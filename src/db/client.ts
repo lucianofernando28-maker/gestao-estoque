@@ -5,8 +5,10 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 const client = postgres(Bun.env.DATABASE_URL!);
-const db = drizzle({ client, schema });
+ export const db = drizzle({ client, schema });
 
 export const dbPlugin = new Elysia()
 	.decorate("db", db)
 	.decorate("models", schema);
+	
+

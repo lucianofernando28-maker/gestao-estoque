@@ -55,3 +55,16 @@ POST {{baseUrl}}/auth/logout
 ### 6 — Tentativa pós-logout (deve retornar 401)
 # Cookie Jar está vazio — nenhum token é enviado.
 GET {{baseUrl}}/users/me
+
+###
+GET {{baseUrl}}/api/produtos
+
+###
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "name": "TV",
+  "price": 1234,
+  "stockQuantity": 23
+}

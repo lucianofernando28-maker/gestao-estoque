@@ -6,6 +6,7 @@ import { signInRoute, signUpRoute } from "./routes/auth.route";
 import { logoutRoute } from "./routes/logout.route";
 import { refreshRoute } from "./routes/refresh.route";
 import { userRoute } from "./routes/user.route";
+import { produtoRoutes } from "./routes/product.route";
 
 const app = new Elysia()
 	.use(
@@ -45,7 +46,10 @@ const app = new Elysia()
 	.use(signInRoute)
 	.use(refreshRoute)
 	.use(userRoute)
+	.use(produtoRoutes)
+	//.group("/api", app => app.use(produtoRoutes))
 	.use(logoutRoute)
+	
 	.onError(({ code, error }) => {
 		if (code === "VALIDATION") return { status: 400, message: error.message };
 		return {
@@ -53,6 +57,7 @@ const app = new Elysia()
 			message: (error as Error).message,
 		};
 	})
+	
 	.listen(3000);
 
 console.log(

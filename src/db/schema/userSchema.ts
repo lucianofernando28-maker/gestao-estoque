@@ -1,6 +1,7 @@
 // src/database/schema.ts
 
 import { createId } from "@paralleldrive/cuid2";
+import { createInsertSchema, createSelectSchema } from 'drizzle-typebox';
 import {
 	boolean,
 	decimal,
@@ -37,18 +38,18 @@ export const refreshToken = pgTable("refresh_token", {
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-
 //Tabela produtos
 export const products = pgTable("products",{
-    id: varchar("id").primaryKey().$defaultFn(()=>createId()),
-    name: varchar("name").notNull().unique(),
-    price: decimal("price",{precision: 10, scale: 2}).notNull(),
-    stockQuantity: integer('stock_quantity').notNull().default(0),
-    totalPrice: decimal("total_price",{precision: 10, scale: 2}).notNull(), 
-    createdAt: timestamp("created_At").notNull().defaultNow(),
-    updateAt: timestamp("update_At").notNull().defaultNow(),
-}); 
+	id: varchar("id").primaryKey().$defaultFn(()=>createId()),
+	name: varchar("name").notNull().unique(),
+	price: decimal("price",{precision: 10, scale: 2}).notNull(),
+	stockQuantity: integer('stock_quantity').notNull().default(0),
+	totalPrice: decimal("total_price",{precision: 10, scale: 2}).notNull(),
+	createdAt: timestamp("created_At").notNull().defaultNow(),
+	updateAt: timestamp("update_At").notNull().defaultNow(),
+});
 
-
-
-export const table = { user, refreshToken, products } as const;
+// Gerando schemas de validação automaticamente do banco
+export const insertProductSchema = createInsertSchema(products);
+export const selectProductSchema = createSelectSchema(products);
+export const table = { user, refreshToken } as const;
