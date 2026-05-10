@@ -47,6 +47,9 @@ export const products = pgTable("products",{
     totalPrice: decimal("total_price",{precision: 10, scale: 2}).notNull(), 
     createdAt: timestamp("created_At").notNull().defaultNow(),
     updateAt: timestamp("update_At").notNull().defaultNow(),
+		userId: varchar("user_id")
+		.notNull()
+		.references(() => user.id)
 }); 
 
 
